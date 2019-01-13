@@ -1,2 +1,2 @@
-# Minesweeper-CSC210
-This is an archive of a project to build minesweeper using Assembly code (assembled using tasm) for the class CSC210 in City College of New York.
+# Assembly-Programing
+This is an archive of projects for a class in City College called CSC210 (Assembly Language Programming).
