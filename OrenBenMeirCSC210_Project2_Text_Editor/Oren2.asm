@@ -588,8 +588,18 @@ jmp ctrl
 ;if Left
 LeftTest:
 cmp ax,LeftArrow
-jne TestIfTextEditMode
+jne DelTest
 call MoveLeft
+jmp ctrl
+
+;If del pressed
+DelTest:	
+cmp ax,5300h
+jne TestIfTextEditMode
+mov bx,Location
+mov String[bx],' '
+call setStringToVideo
+call PlaceCursor
 jmp ctrl
 
 ;if textEdit mode, call edit function
