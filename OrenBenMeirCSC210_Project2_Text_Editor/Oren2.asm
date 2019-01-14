@@ -150,44 +150,6 @@ MoveLeft:;Moves cursor and location left
 	MoveLeftReturn:
 	ret	
 	
-ArrowTest:;Moves cursor based on arrow key if such key is pressed. arguments(ax = scan code from int16h)
-;returns bx=1 if movement occures, bx=0 if otherwise
-	
-	push ax
-	;if Up
-	cmp ax,UpArrow
-	jne DownTest
-	call MoveUp
-	jmp SetBX1
-	;if Down
-	DownTest:
-	cmp ax,DownArrow
-	jne RightTest
-	call MoveDown
-	jmp SetBX1
-	;if Right
-	RightTest:
-	cmp ax,RightArrow
-	jne LeftTest
-	call MoveRight
-	jmp SetBX1
-	;if Left
-	LeftTest:
-	cmp ax,LeftArrow
-	jne SetBX0
-	call MoveLeft
-	jmp SetBX1
-	
-	SetBX1:
-	mov bx,1
-	jmp EndArrowTest
-	
-	SetBX0:
-	sub bx,bx
-	
-	EndArrowTest:
-	pop ax
-	ret
 ClearStringAndDisplay:
 	sub bx,bx
 	ClearStringAndDisplayL:
@@ -384,10 +346,6 @@ DrawInsertKey:; converts values of al to appropriate values and inserts them arg
 	ret
 			
 edit:;edits string and corresponding video in accordance to the value of the key as in Text Edit Mode. arguments: ax=scan code of key 	
-	;arrow keys
-	call ArrowTest	
-	cmp bx,0
-	jne editReturn
 	
 	;backspace
 	cmp ax,0E08h	    
@@ -403,10 +361,6 @@ edit:;edits string and corresponding video in accordance to the value of the key
 	ret
 		
 draw:;edits string and corresponding video in accordance to the value of the key as in Draw Mode. arguments: ax=scan code of key 	
-	;arrow keys
-	call ArrowTest
-	cmp bx,0
-	jne DrawReturn
 	
 	;backspace
 	cmp ax,0E08h
@@ -606,12 +560,37 @@ jmp QuitProgram
 ;if press F1, mode is toggled
 TestIfModeToggle:
 cmp ax,3B00h
-jne TestIfTextEditMode
+jne Uptest
 xor Mode,1
 mov al,Mode
 add al,'0'
 mov es:[3840],al
 jmp ctrl 
+
+;if Up
+Uptest:
+cmp ax,UpArrow
+jne DownTest
+call MoveUp
+jmp ctrl
+;if Down
+DownTest:
+cmp ax,DownArrow
+jne RightTest
+call MoveDown
+jmp ctrl
+;if Right
+RightTest:
+cmp ax,RightArrow
+jne LeftTest
+call MoveRight
+jmp ctrl
+;if Left
+LeftTest:
+cmp ax,LeftArrow
+jne TestIfTextEditMode
+call MoveLeft
+jmp ctrl
 
 ;if textEdit mode, call edit function
 TestIfTextEditMode:
