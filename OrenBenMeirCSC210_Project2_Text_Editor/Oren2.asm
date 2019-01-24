@@ -191,6 +191,7 @@ BackSpace:;Backspaces from location
 insertKey:;inserts character arguments(al = character value)
 	cmp BYTE PTR es:[3838],' '
 	jne insertKeyReturn
+	
 	push ax 
 	mov bx,StringSize
 	dec bx 
