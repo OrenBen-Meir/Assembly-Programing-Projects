@@ -189,6 +189,8 @@ BackSpace:;Backspaces from location
 	BackSpaceReturn:
 	ret
 insertKey:;inserts character arguments(al = character value)
+	cmp BYTE PTR es:[3838],' '
+	jne insertKeyReturn
 	push ax 
 	mov bx,StringSize
 	dec bx 
@@ -213,7 +215,9 @@ insertKey:;inserts character arguments(al = character value)
 	
 	call setStringToVideo
 	call PlaceCursor
-	call MoveRight	
+	call MoveRight
+	
+	insertKeyReturn:
 	ret		
 
 DrawInsertKey:; converts values of al to appropriate values and inserts them arguments(al = character value)
@@ -440,6 +444,7 @@ readFileToBuffer:
     mov dx,offset Buffer 
     int 21h 
     jc read_error
+	ret
 read_error:
 add al,'0'
 mov BYTE PTR es:[800],al
@@ -525,6 +530,7 @@ setFileAndString:;creates/opens a file and sets up string
 	ReadFileToString:
 		call readFileToBuffer
 		call CopyBufferToString
+		call closeFile
 		call createFile
 	setFileAndStringReturn:	
 	ret
