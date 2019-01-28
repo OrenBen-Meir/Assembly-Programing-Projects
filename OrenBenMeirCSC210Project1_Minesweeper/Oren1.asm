@@ -11,9 +11,9 @@ start0:	jmp start
 Map db 50 dup(0);map is created with no bombs added, it is a 10x10 grid
 ElementsLeft db 38 ; how many unopened blocks without bombs
 R db 5; Number of rows in Map
-C db 10; Number of collums in Map
+C db 10; Number of columns in Map
 y db 0; Which row cursor is on
-X db 0; Which collum cursor is on
+X db 0; Which column cursor is on
 
 ;The arrays below represent text below the grid
 PrintLine1 db 'Press a,s,d, and w to move. Press e to reveal an element marked as ',254,'.',0
