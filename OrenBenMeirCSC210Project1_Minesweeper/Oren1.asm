@@ -23,7 +23,7 @@ PrintLine3 db 'Use q to quit. A message will pop below if you win,lose or quit. 
 ;arrays below represent text if the game ends
 QuitString db 'You Quit. Press r to replay. Press other keys to exit game.',0
 WinString db 'You win! Press r to replay. Press other keys to exit game.',0
-LoseString db 'Ypu lose :(  Press r to replay. Press other keys to exit game.',0	
+LoseString db 'You lose :(  Press r to replay. Press other keys to exit game.',0	
 
 ;Procedures are placed here 
 MapBuild:
