@@ -374,7 +374,7 @@ ctrl: ;get key
 	cmp al,'e'
 	je eTrue
 	jmp flagTest
-	;code for spacebar
+	;code for selecting a cell to reveal or not
 	eTrue:	
 	call XYindexSetToBx
 	cmp BYTE PTR es:[bx],254
