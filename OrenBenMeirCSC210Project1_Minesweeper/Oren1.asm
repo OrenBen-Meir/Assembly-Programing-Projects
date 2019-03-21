@@ -8,7 +8,7 @@ start0:	jmp start
 ;JUMPS;for tasm
 
 ;variables
-Map db 50 dup(0);map is created with no bombs added, it is a 10x10 grid
+Map db 50 dup(0);map is created with no bombs added, it is a 5x10 grid
 ElementsLeft db 38 ; how many unopened blocks without bombs
 R db 5; Number of rows in Map
 C db 10; Number of columns in Map
